@@ -24,7 +24,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: first_test
-        run: pytest
+        run: pytest -s -v
 
       - name: second_test
-        run: pytest
+        run: pytest -s -v
