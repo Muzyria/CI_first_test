@@ -25,6 +25,3 @@ jobs:
 
       - name: first_test
         run: pytest -s -v
-
-      - name: second_test
-        run: pytest -s -v
