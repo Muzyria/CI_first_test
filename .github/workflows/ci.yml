@@ -1,7 +1,12 @@
 name: Automated tests
 
 on:
-  push
+  workflow_dispatch: # Добавляет возможность запуска с кнопки
+    inputs:
+      test_name: # Имя параметра
+        description: "Choose test"
+        required: true
+        default: "test_first"
 
 
 jobs:
