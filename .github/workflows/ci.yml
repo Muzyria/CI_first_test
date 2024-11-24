@@ -9,8 +9,8 @@ on:
         default: "first_test"  # Значение по умолчанию
         type: choice  # Тип ввода: выбор из списка
         options:
-          - first_test
-          - second_test  # Доступные опции
+          - test_first
+          - test_second  # Доступные опции
 
 jobs:
   test:
