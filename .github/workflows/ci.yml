@@ -1,13 +1,16 @@
 name: Automated tests
 
 on:
-  workflow_dispatch: # Добавляет возможность запуска с кнопки
+  workflow_dispatch: # Запуск с кнопки в GitHub UI
     inputs:
-      test_name: # Имя параметра
-        description: "Choose test"
+      test_name:  # Параметр выбора теста
+        description: "Choose a test to run"  # Описание
         required: true
-        default: "test_first"
-
+        default: "first_test"  # Значение по умолчанию
+        type: choice  # Тип ввода: выбор из списка
+        options:
+          - first_test
+          - second_test  # Доступные опции
 
 jobs:
   test:
@@ -17,7 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: setup Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
@@ -25,8 +28,10 @@ jobs:
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
 
-      - name: install dependencies
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: first_test
-        run: pytest -s -v
+      - name: Run selected test
+        run: |
+          echo "Running test: ${{ github.event.inputs.test_name }}"
+          pytest -s -v tests/first_tests/test_first.py::TestFirst::${{ github.event.inputs.test_name }}
