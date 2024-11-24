@@ -33,15 +33,14 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run all tests
-#        if: ${{ github.event.inputs.test_name == 'all_tests' }}
-        if: "github.event.inputs.test_name == 'all_tests'"
+        if: ${{ github.event.inputs.test_name == 'all_tests' }}
         run: |
           echo "Running all tests"
           pytest -s -v tests/
 
       - name: Run selected test
-#        if: ${{ github.event.inputs.test_name != 'all_tests' }}
-        if: "github.event.inputs.test_name != 'all_tests'"
+        if: ${{ github.event.inputs.test_name != 'all_tests' }}
         run: |
-          echo "Running test: 'github.event.inputs.test_name'"
-          pytest -s -v tests/first_tests/test_first.py::TestFirst::"github.event.inputs.test_name"
+          echo "Running test: ${{ github.event.inputs.test_name }}"
+          pytest -s -v tests/first_tests/test_first.py::TestFirst::${{ github.event.inputs.test_name }}
+
