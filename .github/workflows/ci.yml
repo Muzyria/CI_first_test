@@ -1,12 +1,12 @@
 name: Automated tests
 
 on:
-  workflow_dispatch: # Запуск с кнопки в GitHub UI
+  workflow_dispatch:  # Запуск с кнопки в GitHub UI
     inputs:
       test_name:  # Параметр выбора теста
         description: "Choose a test to run"  # Описание
-        required: true
-        default: "first_test"  # Значение по умолчанию
+        required: true  # Сделать параметр обязательным
+        default: "test_first"  # Значение по умолчанию для одного из тестов
         type: choice  # Тип ввода: выбор из списка
         options:
           - test_first
@@ -32,11 +32,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Run all tests
+#        if: ${{ github.event.inputs.test_name == 'all_tests' }}
+        if: "github.event.inputs.test_name == 'all_tests'"
+        run: |
+          echo "Running all tests"
+          pytest -s -v tests/
+
       - name: Run selected test
+#        if: ${{ github.event.inputs.test_name != 'all_tests' }}
+        if: "github.event.inputs.test_name != 'all_tests'"
         run: |
           echo "Running test: ${{ github.event.inputs.test_name }}"
-          if [[ "${{ github.event.inputs.test_name }}" == "all_tests" ]]; then
-            pytest -s -v tests/  # Запуск всех тестов в директории tests/
-          else
-            pytest -s -v tests/first_tests/test_first.py::TestFirst::${{ github.event.inputs.test_name }}
-          fi
+          pytest -s -v tests/first_tests/test_first.py::TestFirst::${{ github.event.inputs.test_name }}
