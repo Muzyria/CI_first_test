@@ -15,6 +15,7 @@ class TestFirst:
         print(f"FINISH {request.node.name}")
 
     def test_second(self, request) -> None:
+        """test"""
         print()
         print(f"START {request.node.name}")
         LoginPageSyncWise360.open(LoginPageSyncWise360.PAGE_URL)
