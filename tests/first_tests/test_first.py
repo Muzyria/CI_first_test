@@ -6,6 +6,7 @@ from pages_chrome.login_page_360 import LoginPageSyncWise360
 
 
 class TestFirst:
+    """CI tests"""
     def test_first(self, request) -> None:
         """test first"""
         print()
