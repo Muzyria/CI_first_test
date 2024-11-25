@@ -18,6 +18,6 @@ class TestFirst:
         print()
         print(f"START {request.node.name}")
         LoginPageSyncWise360.open(LoginPageSyncWise360.PAGE_URL)
-        assert LoginPageSyncWise360().password_field_is_displayed() == False
+        assert LoginPageSyncWise360().password_field_is_displayed() is False
         time.sleep(3)
         print(f"FINISH {request.node.name}")
